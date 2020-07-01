@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Registrasi</title>
+</head>
+
+<body>
+    <%-include('../Partials/navbar.ejs') %>
+    <h1>Form Registrasi</h1>
+    <%if(pesan){ %>
+    <p style="color: red;"><%=pesan%></p>
+    <% } %>
+
+    <form action="/register" method="post">
+        <label for='name'>Name :</label><br>
+        <input type="text" name='name' value=""><br>
+        <label for='email'>Email :</label><br>
+        <input type="text" name='email' value=""><br>
+        <label for='password'>Password :</label><br>
+        <input type="password" name='password' value=""><br>
+        <label for='confirmPassword'>Confirm Password :</label><br>
+        <input type="password" name='confirmPassword' value=""><br>
+        <label for='jurusan'>Jurusan :</label><br>
+        <select name="jurusan">
+            <option value='none'>--Select--</option>
+            <% for(let i = 0;i<jurusan.length;i++){ %>
+            <option value='<%=jurusan[i].id %>'><%=jurusan[i].name %></option>
+            <% } %>
+        </select>
+        <br><br>
+        <input type="submit" value="Register">
+
+
+    </form>
+
+</body>
+
+</html>
