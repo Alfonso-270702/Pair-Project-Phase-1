@@ -12,12 +12,13 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       MataPelajaran.hasMany(models.MahasiswaMataPelajaran, { foreignKey: 'mataPelajaranId'})
+      MataPelajaran.belongsTo(models.Jurusan,{foreignKey:'mataId'})
     }
   };
   MataPelajaran.init({
     name: DataTypes.STRING,
-    jurusan: DataTypes.STRING,
-    credit: DataTypes.INTEGER
+    credit: DataTypes.INTEGER,
+    mataId:DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'MataPelajaran',

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Mata Pelajaran</title>
+</head>
+
+<body>
+    <%-include('../Partials/navbar.ejs') %>
+    <h1>Add Mata Pelajaran</h1>
+    <%if(pesan){ %>
+    <p style="color: red;"><%=pesan%></p>
+    <% } %>
+    <form action="/MataPelajaran/add" method="post">
+        <label for='name'>Name :</label><br>
+        <input type="text" name='name' value=""><br>
+
+        <label for='jurusan'>Jurusan :</label><br>
+        <select name="jurusan">
+            <option value='none'>--Select--</option>
+            <% for(let i = 0;i<jurusan.length;i++){ %>
+            <option value='<%=jurusan[i].id %>'><%=jurusan[i].name %></option>
+            <% } %>
+        </select><br>
+        <label for='credit'>Credit :</label><br>
+        <input type="number" name='credit' value=""><br>
+        <br><br>
+        <input type="submit" value="Tambahkan">
+
+
+    </form>
+
+</body>
+
+</html>
