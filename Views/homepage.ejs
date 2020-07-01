@@ -10,13 +10,16 @@
 <body>
     <%-include('../Partials/navbar.ejs') %>
     <h2>List Mahasiswa</h2>
+    <a href="/MataPelajaran">List Mata Pelajaran</a>
     <table>
         <tr>
+            <th>No.</th>
             <th>Nama Mahasiswa</th>
             <th>Jurusan</th>
         </tr>
         <%for(let i = 0;i<dataMahasiswa.length;i++){ %>
         <tr>
+            <td><%=i+1%></td>
             <td><%=dataMahasiswa[i].name %></td>
             <td><%=dataMahasiswa[i].Jurusan.name %></td>
         </tr>

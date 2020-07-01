@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+    <title>Dashboard Mahasiswa</title>
+   
+</head>
+
+<body>
+    <h1>Halaman Mahasiswa</h1>
+    <a href='/MataPelajaran'>|List Mata Pelajaran|</a> <a
+        href='/dashboardMahasiswa/<%=dataMahasiswa[0].id %>'>|Dashboard|</a><a
+        href='/MataPelajaran/addSKS/<%=dataMahasiswa[0].id %>'>|Add SKS||</a><%-include('../Partials/logOut') %>
+    <p>Id : <%=dataMahasiswa[0].id %></p>
+    <p>Name : <%=dataMahasiswa[0].name %></p>
+    <p>CreatedAt : <%=dataMahasiswa[0].createdAt %></p>
+    <h3>List Mata Pelajaran</h3>
+    <table>
+        <tr>
+            <th>No.</th>
+            <th>Mata Pelajaran</th>
+            <th>Credit</th>
+            <th>Action</th>
+        </tr>
+        <% for(let i = 0; i<dataMahasiswa[0].MahasiswaMataPelajarans.length;i++){ %>
+        <tr>
+            <td><%=i+1%></td>
+            <td><%=dataMahasiswa[0].MahasiswaMataPelajarans[i].MataPelajaran.name %></td>
+            <td><%=dataMahasiswa[0].MahasiswaMataPelajarans[i].MataPelajaran.credit %></td>
+            <td><a href='/MataPelajaran/deleteSKS/<%=dataMahasiswa[0].MahasiswaMataPelajarans[i].id %>/<%=dataMahasiswa[0].id %>'
+                    onclick="return confirm('Yakin mau buang SKS ini?');">Delete SKS</a></td>
+        </tr>
+        <% } %>
+    </table>
+    <h3>Total Credit kamu sekarang adalah : <%=totalCredit%></h3>
+    <br><br>
+    <p>Your QR Code :</p>
+    
+</body>
+
+</html>

@@ -16,15 +16,50 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Mahasiswa.init({
-    name: DataTypes.STRING,
-    email: DataTypes.STRING,
-    sks: DataTypes.INTEGER,
-    jurusanId: DataTypes.INTEGER,
-    password: DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          msg: `Nama tidak boleh kosong`
+        }
 
+      }
+    },
+    email: {
+      type: DataTypes.STRING,
+      validate: {
+        isEmail: {
+          msg: `Tolong Gunakan Email yang Benar`
+        }
+
+      }
+    },
+    sks: DataTypes.INTEGER,
+    jurusanId: {
+      type: DataTypes.INTEGER,
+      validate:{
+        notContains:{
+          args:'none',
+          msg:`Jurusan tidak boleh kosong`
+        }
+      }
+    },
+    password: {
+      type:DataTypes.STRING,
+      validate:{
+        notEmpty:{
+          msg:`Password tidak boleh kosong`
+        }
+      }
+    },
   }, {
     sequelize,
     modelName: 'Mahasiswa',
+    hooks: {
+      beforeBulkCreate(instance, options) {
+        instance.name = `Kakak ${instance.name}`
+      }
+    }
   });
   return Mahasiswa;
 };

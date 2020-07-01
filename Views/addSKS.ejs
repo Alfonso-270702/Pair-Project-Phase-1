@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>Mari pilih SKS</h2><%-include('../Partials/logOut') %>
+    <%if(pesan){%>
+<p style="color: red;"><%=pesan%></p>
+    <%}%>
+    <a href='/dashboardMahasiswa/<%=data[0].id %>'>Kembali ke Dashboard</a>
+    <form action="/MataPelajaran/addSKS" method="POST">
+        <input type="hidden" name='mahasiswaId' value="<%=data[0].id %>">
+        <p>Name : <%=data[0].name %></p>
+        <p>Jurusan : <%=data[0].Jurusan.name %></p>
+        <label for='SKS'>Pilihan SKS Jurusanmu :</label><br>
+        <select name="SKS">
+            <option value='none'>--Select--</option>
+            <% for(let i = 0;i<data[0].Jurusan.MataPelajarans.length;i++){ %>
+            <option value='<%=data[0].Jurusan.MataPelajarans[i].id %>'><%=data[0].Jurusan.MataPelajarans[i].name %>
+            </option>
+            <% } %>
+        </select>
+        <br><br>
+        <input type='submit' value='PilihSKS'>
+    </form>
+
+</body>
+
+</html>
