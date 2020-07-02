@@ -25,10 +25,17 @@ route.get('/dashboardMahasiswa/:id', (req, res, next) => {
     }
 }, ControllerHome.dashboard)
 route.get('/logout', ControllerHome.logOut)
+route.get('/qr/home', function (req, res) {
+    let gabunganStr=`https://quiet-hollows-03422.herokuapp.com`;
+    let code = qr.image(gabunganStr, { type: 'png', size: 10 });
+    res.setHeader('Content-type', 'image/png');
+    code.pipe(res);
+})
 route.get('/qr/:text/:id', function (req, res) {
     let params = req.params.text;
     let id = req.params.id;
-    let gabunganStr = `/${params}/${id}`;
+    let gabunganStr=`https://quiet-hollows-03422.herokuapp.com`;
+    gabunganStr += `/${params}/${id}`;
     let code = qr.image(gabunganStr, { type: 'png', size: 10 });
     res.setHeader('Content-type', 'image/png');
     code.pipe(res);
