@@ -23,12 +23,7 @@ route.get('/dashboardMahasiswa/:id', (req, res, next) => {
         let pesan = `Harus Log in untuk melihat Dashboard Mahasiswa`;
         res.redirect(`/login?pesan=${pesan}`)
     }
-
-
 }, ControllerHome.dashboard)
-
-
-
 route.get('/logout', ControllerHome.logOut)
 route.get('/qr/:text/:id', function (req, res) {
     let params = req.params.text;
@@ -38,6 +33,7 @@ route.get('/qr/:text/:id', function (req, res) {
     res.setHeader('Content-type', 'image/png');
     code.pipe(res);
 })
+route.get('/portofolio/:id',ControllerHome.portofolio)
 
 
 module.exports = route

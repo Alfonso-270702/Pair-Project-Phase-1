@@ -32,7 +32,6 @@ class ControllerHome {
                     req.session.dataMahasiswa = data[0].id;
                     req.session.jurusan = data[0].jurusanId;
                     let dataId = req.session.dataMahasiswa;
-
                     res.redirect(`/dashboardMahasiswa/${dataId}`)
                 }
                 else {
@@ -51,40 +50,73 @@ class ControllerHome {
     static dashboard(req, res) {
         let dataID = req.session.dataMahasiswa;
         let dataMahasiswa = '';
+        let jurusan='';
         Mahasiswa.findAll({ where: { id: dataID }, include: { model: MahasiswaMataPelajaran, include: { model: MataPelajaran } } })
             .then(data => {
                 dataMahasiswa = data;
                 return Mahasiswa.findAll({ where: { id: dataID }, include: { model: Jurusan } })
             })
             .then(data => {
-                let totalCredit = 0;
-                for (let i = 0; i < dataMahasiswa[0].MahasiswaMataPelajarans.length; i++) {
-                    totalCredit += data[0].MahasiswaMataPelajarans[i].MataPelajaran.credit;
-                }
-                //res.send(data[0].Jurusan.name);
-                res.render('dashboardMahasiswa', { dataMahasiswa, totalCredit,jurusan:data });
+                jurusan = data;
+                return MahasiswaMataPelajaran.findAll({ where: { mahasiswaId: dataID }, include: { model: MataPelajaran } })
+
 
             })
+            .then(data=>{
+                let totalCredit = 0;
+                for (let i = 0; i < data.length; i++) {
+                    totalCredit += data[i].MataPelajaran.credit;
+                }
 
-        // Mahasiswa.findAll({ where: { id: data }, include: { model: MahasiswaMataPelajaran, include: { model: MataPelajaran,include:{model:Jurusan}} } })
-        //     .then(data => {
-        //         let totalCredit = 0;
-        //         for (let i = 0; i < data[0].MahasiswaMataPelajarans.length; i++) {
-        //             totalCredit += data[0].MahasiswaMataPelajarans[i].MataPelajaran.credit;
-        //         }
+                res.render('dashboardMahasiswa', { dataMahasiswa, totalCredit, jurusan});
 
-        //         res.render('dashboardMahasiswa', { dataMahasiswa: data, totalCredit });
 
-        //     })
-        //     .catch(err => {
-        //         res.send(err);
-        //     })
+            })
+            .catch(err => {
+                res.send(err)
+            })
+       
     }
     static logOut(req, res) {
         delete req.session.isLogin;
         delete req.session.dataMahasiswa;
         delete req.session.jurusanId;
         res.redirect('/')
+    }
+    static portofolio(req, res) {
+        let dataID = req.params.id;
+        let dataMahasiswa = '';
+        let jurusan = '';
+        Mahasiswa.findAll({ where: { id: dataID }, include: { model: MahasiswaMataPelajaran, include: { model: MataPelajaran } } })
+            .then(data => {
+                dataMahasiswa = data;
+                return Mahasiswa.findAll({ where: { id: dataID }, include: { model: Jurusan } })
+            })
+            .then(data => {
+                jurusan = data;
+                return MahasiswaMataPelajaran.findAll({ where: { mahasiswaId: dataID }, include: { model: MataPelajaran } })
+
+
+                //let totalCredit = 0;
+                // for (let i = 0; i < dataMahasiswa[0].MahasiswaMataPelajarans.length; i++) {
+                //     totalCredit += data[0].MahasiswaMataPelajarans[i].MataPelajaran.credit;
+                // }
+                // res.send(dataMahasiswa[0].MahasiswaMataPelajarans[1]);
+                //res.send(dataMahasiswa[0].MahasiswaMataPelajarans[0].MataPelajaran.id);
+                //res.render('portofolioMahasiswa', { dataMahasiswa, totalCredit, jurusan: data });
+            })
+            .then(data => {
+                let totalCredit = 0;
+                for (let i = 0; i < data.length; i++) {
+                    totalCredit += data[i].MataPelajaran.credit;
+                }
+                //console.log(data[1].MataPelajaran.credit);
+                res.render('portofolioMahasiswa', { dataMahasiswa, totalCredit, jurusan });
+
+            })
+            .catch(err => {
+                res.send(err);
+            })
     }
 
 }
