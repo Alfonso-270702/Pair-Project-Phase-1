@@ -12,7 +12,7 @@
     <%if(pesan){%>
 <p style="color: red;"><%=pesan%></p>
     <%}%>
-    <a href='/dashboardMahasiswa/<%=data[0].id %>'>Kembali ke Dashboard</a>
+    <a href='/dashboardMahasiswa/<%=data[0].id %>'>||Kembali ke Dashboard</a>
     <form action="/MataPelajaran/addSKS" method="POST">
         <input type="hidden" name='mahasiswaId' value="<%=data[0].id %>">
         <p>Name : <%=data[0].name %></p>

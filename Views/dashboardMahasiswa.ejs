@@ -7,14 +7,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
     <title>Dashboard Mahasiswa</title>
-   
+
 </head>
 
 <body>
     <h1>Halaman Mahasiswa</h1>
-    <a href='/MataPelajaran'>|List Mata Pelajaran|</a> <a
-        href='/dashboardMahasiswa/<%=dataMahasiswa[0].id %>'>|Dashboard|</a><a
-        href='/MataPelajaran/addSKS/<%=dataMahasiswa[0].id %>'>|Add SKS||</a><%-include('../Partials/logOut') %>
+    <a href='/MataPelajaran/addSKS/<%=dataMahasiswa[0].id %>'>||Add SKS||</a><%-include('../Partials/logOut') %>
     <p>Id : <%=dataMahasiswa[0].id %></p>
     <p>Name : <%=dataMahasiswa[0].name %></p>
     <p>Jurusan : <%=dataMahasiswa[0].MahasiswaMataPelajarans[0].MataPelajaran.Jurusan.name%></p>
@@ -41,8 +39,8 @@
     <br><br>
     <p>Your QR Code :</p>
     <a href='/qr/dashboardMahasiswa/<%=dataMahasiswa[0].id %>'>Print QR</a>
-    
-    
+
+
 </body>
 
 </html>
