@@ -5,8 +5,8 @@ class ControllerMataPelajaran {
         MataPelajaran.findAll({ order: [['credit', 'asc']], include: { model: Jurusan } })
             .then(data => {
                 let pesan = req.query.pesan;
-                let isLogin = req.app.locals.isLogin;
-                let dataMahasiswa = req.app.locals.dataMahasiswa;
+                let isLogin = req.session.isLogin;
+                let dataMahasiswa = req.session.dataMahasiswa;
 
                 res.render('MataPelajaranPage', { mataPelajaran: data, pesan, isLogin, dataMahasiswa })
 

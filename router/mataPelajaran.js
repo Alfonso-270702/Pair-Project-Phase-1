@@ -4,7 +4,7 @@ const ControllerHome = require('../Controllers/ControllerHome');
 
 const mataPelajaranRoute = require('express').Router()
 mataPelajaranRoute.get('/', (req, res, next) => {
-    if (req.app.locals.isLogin) {
+    if (req.session.isLogin) {
         next();
     }
     else {
