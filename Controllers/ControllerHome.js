@@ -16,6 +16,7 @@ class ControllerHome {
     }
     static login(req, res) {
         let pesan = req.query.pesan;
+        
         res.render('loginPage', { pesan });
     }
     static loginPost(req, res) {
@@ -60,5 +61,6 @@ class ControllerHome {
         delete req.app.locals.dataMahasiswa;
         res.redirect('/')
     }
+
 }
 module.exports = ControllerHome

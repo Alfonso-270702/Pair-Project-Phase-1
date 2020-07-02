@@ -56,8 +56,8 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Mahasiswa',
     hooks: {
-      beforeBulkCreate(instance, options) {
-        instance.name = `Kakak ${instance.name}`
+      beforeCreate:(instances, options)=> {
+        instances.name = `kakak ${instances.name}`
       }
     }
   });
