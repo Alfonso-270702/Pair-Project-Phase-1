@@ -1,5 +1,5 @@
 const { Mahasiswa, Jurusan, MataPelajaran, MahasiswaMataPelajaran } = require('../models')
-const { compare }=require('../Helpers/bcypt')
+const { compare } = require('../Helpers/bcypt')
 
 class ControllerHome {
 
@@ -17,7 +17,7 @@ class ControllerHome {
     }
     static login(req, res) {
         let pesan = req.query.pesan;
-        
+
 
         res.render('loginPage', { pesan });
     }
@@ -27,12 +27,12 @@ class ControllerHome {
         let newPassword = params.password;
         Mahasiswa.findAll({ where: { email: newEmail } })
             .then(data => {
-                if (compare(newPassword,data[0].password)) {
+                if (compare(newPassword, data[0].password)) {
                     req.session.isLogin = true;
                     req.session.dataMahasiswa = data[0].id;
                     req.session.jurusan = data[0].jurusanId;
                     let dataId = req.session.dataMahasiswa;
-                    
+
                     res.redirect(`/dashboardMahasiswa/${dataId}`)
                 }
                 else {
@@ -49,21 +49,36 @@ class ControllerHome {
 
     }
     static dashboard(req, res) {
-        let data = req.session.dataMahasiswa;
-        
-        Mahasiswa.findAll({ where: { id: data }, include: { model: MahasiswaMataPelajaran, include: { model: MataPelajaran,include:{model:Jurusan}} } })
+        let dataID = req.session.dataMahasiswa;
+        let dataMahasiswa = '';
+        Mahasiswa.findAll({ where: { id: dataID }, include: { model: MahasiswaMataPelajaran, include: { model: MataPelajaran } } })
+            .then(data => {
+                dataMahasiswa = data;
+                return Mahasiswa.findAll({ where: { id: dataID }, include: { model: Jurusan } })
+            })
             .then(data => {
                 let totalCredit = 0;
-                for (let i = 0; i < data[0].MahasiswaMataPelajarans.length; i++) {
+                for (let i = 0; i < dataMahasiswa[0].MahasiswaMataPelajarans.length; i++) {
                     totalCredit += data[0].MahasiswaMataPelajarans[i].MataPelajaran.credit;
                 }
-                //res.send(data[0].MahasiswaMataPelajarans[0].MataPelajaran.Jurusan.name);
-                res.render('dashboardMahasiswa', { dataMahasiswa: data, totalCredit });
-                //res.send(data[0].MahasiswaMataPelajarans[0].MataPelajaran.name);
+                //res.send(data[0].Jurusan.name);
+                res.render('dashboardMahasiswa', { dataMahasiswa, totalCredit,jurusan:data });
+
             })
-            .catch(err => {
-                res.send(err);
-            })
+
+        // Mahasiswa.findAll({ where: { id: data }, include: { model: MahasiswaMataPelajaran, include: { model: MataPelajaran,include:{model:Jurusan}} } })
+        //     .then(data => {
+        //         let totalCredit = 0;
+        //         for (let i = 0; i < data[0].MahasiswaMataPelajarans.length; i++) {
+        //             totalCredit += data[0].MahasiswaMataPelajarans[i].MataPelajaran.credit;
+        //         }
+
+        //         res.render('dashboardMahasiswa', { dataMahasiswa: data, totalCredit });
+
+        //     })
+        //     .catch(err => {
+        //         res.send(err);
+        //     })
     }
     static logOut(req, res) {
         delete req.session.isLogin;

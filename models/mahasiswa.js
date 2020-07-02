@@ -15,6 +15,9 @@ module.exports = (sequelize, DataTypes) => {
       Mahasiswa.belongsTo(models.Jurusan, { foreignKey: 'jurusanId' })
       Mahasiswa.hasMany(models.MahasiswaMataPelajaran, { foreignKey: 'mahasiswaId' })
     }
+    mrMs(){
+      return this.name = `Mr/Ms ${this.name}`;
+    }
   };
   Mahasiswa.init({
     name: {
