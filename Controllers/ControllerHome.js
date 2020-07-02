@@ -1,4 +1,5 @@
 const { Mahasiswa, Jurusan, MataPelajaran, MahasiswaMataPelajaran } = require('../models')
+const { compare }=require('../Helpers/bcypt')
 
 class ControllerHome {
 
@@ -26,12 +27,11 @@ class ControllerHome {
         let newPassword = params.password;
         Mahasiswa.findAll({ where: { email: newEmail } })
             .then(data => {
-                if (data[0].password === newPassword) {
+                if (compare(newPassword,data[0].password)) {
                     req.session.isLogin = true;
                     req.session.dataMahasiswa = data[0].id;
                     let dataId = req.session.dataMahasiswa;
-                    let dataMahasiswa = req.session.dataMahasiswa;
-                    //res.render('dashboardMahasiswa',{dataMahasiswa})
+                    
                     res.redirect(`/dashboardMahasiswa/${dataId}`)
                 }
                 else {

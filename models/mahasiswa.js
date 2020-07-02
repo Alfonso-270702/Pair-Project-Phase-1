@@ -1,6 +1,7 @@
 'use strict';
+const { encrypt } = require('../Helpers/bcypt')
 const {
-  Model
+  Model, useInflection
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Mahasiswa extends Model {
@@ -37,18 +38,18 @@ module.exports = (sequelize, DataTypes) => {
     sks: DataTypes.INTEGER,
     jurusanId: {
       type: DataTypes.INTEGER,
-      validate:{
-        notContains:{
-          args:'none',
-          msg:`Jurusan tidak boleh kosong`
+      validate: {
+        notContains: {
+          args: 'none',
+          msg: `Jurusan tidak boleh kosong`
         }
       }
     },
     password: {
-      type:DataTypes.STRING,
-      validate:{
-        notEmpty:{
-          msg:`Password tidak boleh kosong`
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          msg: `Password tidak boleh kosong`
         }
       }
     },
@@ -56,8 +57,8 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Mahasiswa',
     hooks: {
-      beforeCreate:(instances, options)=> {
-        instances.name = `kakak ${instances.name}`
+      beforeCreate: (user) => {
+        user.password = encrypt(user.password);
       }
     }
   });
