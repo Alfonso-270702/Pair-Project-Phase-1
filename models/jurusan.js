@@ -14,6 +14,9 @@ module.exports = (sequelize, DataTypes) => {
       Jurusan.hasMany(models.Mahasiswa, {foreignKey: 'jurusanId'})
       Jurusan.hasMany(models.MataPelajaran,{foreignKey:'mataId'})
     }
+    function(){
+      return this.name = `Jurusan ${this.name}`;
+    }
   };
   Jurusan.init({
     name: DataTypes.STRING

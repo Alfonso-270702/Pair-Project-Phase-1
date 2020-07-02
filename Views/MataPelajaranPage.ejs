@@ -24,7 +24,7 @@
         <% for(let i = 0;i<mataPelajaran.length;i++){ %>
         <tr>
             <td><%=i+1 %></td>
-            <td><%=mataPelajaran[i].Jurusan.name %></td>
+            <td><%=mataPelajaran[i].Jurusan.function() %></td>
             <td><%=mataPelajaran[i].name %></td>
             <td><%=mataPelajaran[i].credit %></td>
         </tr>

@@ -17,6 +17,7 @@
         href='/MataPelajaran/addSKS/<%=dataMahasiswa[0].id %>'>|Add SKS||</a><%-include('../Partials/logOut') %>
     <p>Id : <%=dataMahasiswa[0].id %></p>
     <p>Name : <%=dataMahasiswa[0].name %></p>
+    <p>Jurusan : <%=dataMahasiswa[0].MahasiswaMataPelajarans[0].MataPelajaran.Jurusan.name%></p>
     <p>CreatedAt : <%=dataMahasiswa[0].createdAt %></p>
     <h3>List Mata Pelajaran</h3>
     <table>

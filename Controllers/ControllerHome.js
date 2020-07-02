@@ -30,6 +30,7 @@ class ControllerHome {
                 if (compare(newPassword,data[0].password)) {
                     req.session.isLogin = true;
                     req.session.dataMahasiswa = data[0].id;
+                    req.session.jurusan = data[0].jurusanId;
                     let dataId = req.session.dataMahasiswa;
                     
                     res.redirect(`/dashboardMahasiswa/${dataId}`)
@@ -49,13 +50,14 @@ class ControllerHome {
     }
     static dashboard(req, res) {
         let data = req.session.dataMahasiswa;
-        Mahasiswa.findAll({ where: { id: data }, include: { model: MahasiswaMataPelajaran, include: { model: MataPelajaran } } })
+        
+        Mahasiswa.findAll({ where: { id: data }, include: { model: MahasiswaMataPelajaran, include: { model: MataPelajaran,include:{model:Jurusan}} } })
             .then(data => {
                 let totalCredit = 0;
                 for (let i = 0; i < data[0].MahasiswaMataPelajarans.length; i++) {
                     totalCredit += data[0].MahasiswaMataPelajarans[i].MataPelajaran.credit;
                 }
-
+                //res.send(data[0].MahasiswaMataPelajarans[0].MataPelajaran.Jurusan.name);
                 res.render('dashboardMahasiswa', { dataMahasiswa: data, totalCredit });
                 //res.send(data[0].MahasiswaMataPelajarans[0].MataPelajaran.name);
             })
@@ -66,6 +68,7 @@ class ControllerHome {
     static logOut(req, res) {
         delete req.session.isLogin;
         delete req.session.dataMahasiswa;
+        delete req.session.jurusanId;
         res.redirect('/')
     }
 
