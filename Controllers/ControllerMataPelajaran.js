@@ -59,7 +59,7 @@ class ControllerMataPelajaran {
         let params = req.body;
         let newMahasiswaId = params.mahasiswaId;
         let newMataPelajaranId = params.SKS;
-
+        console.log(params);
         MahasiswaMataPelajaran.findAll({ where: { mahasiswaId: newMahasiswaId, mataPelajaranId: newMataPelajaranId } })
             .then(data => {
                 if (data.length === 0) {
@@ -89,6 +89,7 @@ class ControllerMataPelajaran {
     static mataPelajaranDeleteSKS(req, res) {
         let SKSId = +req.params.id;
         let mahasiswaId = +req.params.mahasiswaID;
+        console.log(mahasiswaId);
         MahasiswaMataPelajaran.destroy({ where: { id: SKSId } })
             .then(data => {
                 res.redirect(`/dashboardMahasiswa/${mahasiswaId}`)

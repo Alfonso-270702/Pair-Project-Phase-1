@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <title>Portofolio Mahasiswa</title>
+</head>
+
+<body>
+    <div class='container'>
+        <div class='row'>
+            <div class='col-xs-12 col-sm-6 col-md-6'>
+                <div class='well well-sm'>
+                    <div class='row'>
+                        <div class='col-sm-6 col-md-4'>
+                            <h1>O</h1>
+                            <h1>/|\</h1>
+                            <p>Id : <%=dataMahasiswa[0].id %></p>
+
+                        </div>
+                        <div class="col-sm-6 col-md-8">
+                            <h4><%=dataMahasiswa[0].mrMs() %></h4>
+                            <small><cite title="San Francisco, USA"
+                                    style="font-weight: bold;"><%=jurusan[0].Jurusan.function() %></cite></small><br>
+                            <p>Join Since : <%=dataMahasiswa[0].createdAt %></p><br>
+                            <table class='table'>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Mata Pelajaran</th>
+                                        <th scope="col">Credit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% for(let i = 0; i<dataMahasiswa[0].MahasiswaMataPelajarans.length;i++){ %>
+                                    <tr>
+                                        <th scope="row"><%=i+1%></th>
+                                        <td><%=dataMahasiswa[0].MahasiswaMataPelajarans[i].MataPelajaran.name %></td>
+                                        <td><%=dataMahasiswa[0].MahasiswaMataPelajarans[i].MataPelajaran.credit %></td>
+                                        </td>
+                                    </tr>
+                                    <% } %>
+                                    <br>
+
+                                </tbody>
+                            </table>
+                            <h5>Total Credit kamu sekarang adalah : <%=totalCredit%></h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
