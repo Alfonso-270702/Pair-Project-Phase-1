@@ -36,4 +36,5 @@ route.get('/qr/:text/:id', function (req, res) {
 route.get('/portofolio/:id',ControllerHome.portofolio)
 
 
+
 module.exports = route

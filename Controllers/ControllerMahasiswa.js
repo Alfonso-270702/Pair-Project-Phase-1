@@ -38,15 +38,15 @@ class ControllerMahasiswa {
                 })
                 .catch(err => {
                     if (err.name === 'SequelizeValidationError') {
-                        
-                        let errStr='';
-                        for(let i = 0;i<err.errors.length;i++){
-                            if(i === err.errors.length-1){
-                                errStr+=err.errors[i].message
+
+                        let errStr = '';
+                        for (let i = 0; i < err.errors.length; i++) {
+                            if (i === err.errors.length - 1) {
+                                errStr += err.errors[i].message
                             }
-                            else{
-                                errStr+=err.errors[i].message
-                                errStr+=`, `
+                            else {
+                                errStr += err.errors[i].message
+                                errStr += `, `
                             }
                         }
                         res.redirect(`/register?pesan=${errStr}`)
@@ -68,8 +68,43 @@ class ControllerMahasiswa {
 
         //console.log(params)
     }
-    static pilihMataPelajaran(req, res) {
+    static namaEdit(req, res) {
+        let mahasiswaId = +req.params.id;
 
+        Mahasiswa.findAll({ where: { id: mahasiswaId }, include: { model: Jurusan } })
+            .then(data => {
+                let pesan = req.query.pesan;
+                res.render('mahasiswaEditName', { data, pesan })
+            })
+
+            .catch(err => {
+                res.send(err);
+            })
+
+        //console.log(mahasiswaId);
+    }
+    static namaEditPost(req,res){
+        let params = req.body
+        let mahasiswaId = params.id;
+        let mahasiswaName = params.name;
+        Mahasiswa.update({
+            name:mahasiswaName
+        },{where:{id:mahasiswaId}})
+        .then(data=>{
+            res.redirect(`/dashboardMahasiswa/${mahasiswaId}`)
+        })
+        .catch(err=>{
+            if(err.name === 'SequelizeValidationError'){
+                res.redirect(`/Mahasiswa/edit/${mahasiswaId}?pesan=${err.errors[0].message}`)
+                
+            }
+            else{
+                res.send(err);
+            }
+            
+        })
+        
+        //console.log(params);
     }
 
 }

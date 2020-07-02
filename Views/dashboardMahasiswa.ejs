@@ -14,8 +14,10 @@
     <h1>Halaman Mahasiswa</h1>
     <a href='/MataPelajaran/addSKS/<%=dataMahasiswa[0].id %>'>||Add SKS||</a><%-include('../Partials/logOut') %>
     <p>Id : <%=dataMahasiswa[0].id %></p>
-    <p>Name : <%=dataMahasiswa[0].mrMs() %></p>
+    <p>Name : <%=dataMahasiswa[0].mrMs() %><a href='/Mahasiswa/edit/<%=dataMahasiswa[0].id %>'>Edit</a>
+    </p>
     <p>Jurusan : <%=jurusan[0].Jurusan.name %></p>
+    <p>Email : <%=dataMahasiswa[0].email %></p>
     <p>CreatedAt : <%=dataMahasiswa[0].createdAt %></p>
     <button title="hashedPassword" type="button" onclick="if(document.getElementById('spoiler').style.display=='none'){
     document.getElementById('spoiler').style.display=''
